@@ -28,7 +28,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
   describe "查询单个的tag" do
     it "should find the tag" do
       tag = Tag.create! tag_name: "公交", tag_icon: 'imageSrc'
-      get "/api/v1/tags?tag_id=#{tag.id}"
+      get "/api/v1/tags?#{tag.id}"
       expect(response).to have_http_status 200  
     end
 
@@ -37,6 +37,24 @@ RSpec.describe "Api::V1::Tags", type: :request do
       body = JSON.parse(response.body)
       expect(response).to have_http_status 200  
       expect(body["resources"].size).to eq 0  
+    end
+  end
+
+  describe "删除tag" do
+    it "should destroy the tag" do
+      tag = Tag.create! tag_name: "地铁", tag_icon: 'imageSrc'
+      delete "/api/v1/tags/#{tag.id}"
+      expect(response).to have_http_status 200  
+    end
+  end
+
+  describe "修改tag" do
+    it "should update the tag" do
+      tag = Tag.create! tag_name: '火车', tag_icon: 'imageSrc'
+      patch "/api/v1/tags/#{tag.id}", params: {tag_name: '汽车', tag_icon: 'imageSrc'}
+      expect(response).to have_http_status 200 
+      body = JSON.parse response.body
+      expect(body["resource"]["tag_name"]).to eq "汽车"
     end
   end
 end

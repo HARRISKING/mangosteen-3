@@ -13,7 +13,17 @@ class Api::V1::TagsController < ApplicationController
 	end
 
 	def show
-		render_resource Tag.find params[:tag_id]
+		render_resource Tag.find params[:id]
 	end
 
+	def destroy 
+		tag = Tag.find params[:id]
+		head tag.destroy ? :ok : :bad_request
+	end
+
+	def update
+		tag = Tag.find params[:id]
+		tag.update tag_name: params[:tag_name], tag_icon: params[:tag_icon] 
+		render_resource tag
+	end
 end
