@@ -11,7 +11,6 @@ RSpec.describe "Api::V1::Items", type: :request do
     end
   end
 
-
   describe "index" do
     it "should find the items" do
       11.times { Item.create amount: 1111 }

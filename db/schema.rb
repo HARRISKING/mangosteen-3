@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_13_072802) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_14_013442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_13_072802) do
     t.integer "amount", null: false
     t.integer "category", limit: 2, null: false
     t.string "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "tag_name"
+    t.string "tag_icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
