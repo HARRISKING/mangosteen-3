@@ -16,4 +16,20 @@ class Api::V1::ItemsController < ApplicationController
 				count: Item.count
 			}}
 		end
+
+
+		def show
+			render_resource Item.find params[:id]
+		end
+
+		def destroy
+			items = Item.find params[:id]
+			head items.destroy ? :ok : :bad_request
+		end
+
+		def update
+			items = Item.find params[:id]
+			items.update amount: params[:amount], note: params[:note]
+			render_resource items
+		end
 end
